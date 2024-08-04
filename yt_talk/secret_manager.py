@@ -15,7 +15,7 @@ class SecretManager(ABC):
         self.store = self._fetch_store()
 
     def get_secret(self, name: str) -> str:
-        return self.store.get(name, "")
+        return self.store.get(name, None)
 
     def store_secret(self, name: str, value: str) -> None:
         self.store[name] = value
@@ -36,6 +36,7 @@ class SecretManager(ABC):
 def main_init():
     sm = SecretManager()
     print(sm.get_secret(DEEP_SEEK_KEY))
+
 
 if __name__ == '__main__':
     main_init()
