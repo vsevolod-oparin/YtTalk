@@ -1,0 +1,6 @@
+.idea/
+botdb/
+data/
+**/__pycache__/
+
+secret.txt
