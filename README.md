@@ -30,3 +30,14 @@ Follow the address you'll see in terminal. E.g. http://127.0.0.1:7860
 Running on local URL:  http://127.0.0.1:7860
 ```
 
+## TODO
+
+- Make an option to add custom audio/video
+- Add dropdown in selecting transcription
+- Improve audio fetcher interface
+- Add an intro view in audio fetcher
+- Show audio player in dialog, may be with embed
+- Define better clear button
+- Add control over system prompt
+- Refactor interface part
+- Add TG bot interface to share over Telegram

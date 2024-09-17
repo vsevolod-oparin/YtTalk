@@ -3,6 +3,8 @@ from abc import ABC
 from pathlib import Path
 from typing import Dict
 
+from yt_talk.utils import load_json, save_json
+
 DEEP_SEEK_KEY = 'deepseek'
 TG_BOT_KEY = "telegram_bot"
 LANGCHAIN_KEY = "langchain_key"
@@ -23,14 +25,11 @@ class SecretManager(ABC):
 
     def _fetch_store(self) -> Dict[str, str]:
         if self.secret_pth.exists():
-            with open(self.secret_pth, 'r') as f:
-                return json.load(f)
+            return load_json(self.secret_pth)
         return dict()
 
     def _save_store(self) -> None:
-        with open(self.secret_pth, 'w') as f:
-            store_str = json.dumps(self.store)
-            f.write(store_str)
+        save_json(self.store, self.secret_pth, indent=2)
 
 
 def main_init():

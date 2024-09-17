@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Dict, Tuple, Union
 
 from .config import device
-
+from .utils import save_json, load_json
 
 # Model Config
 model_size = "large-v2"
@@ -19,18 +19,17 @@ def get_parsed_json_pth(audio_pth: Path) -> Path:
 
 def parse_audio_content(audio_pth: Union[str, Path], title: str) -> Tuple[Path, Dict]:
     audio_pth = Path(audio_pth)
-    parsed_json = get_parsed_json_pth(audio_pth)
+    parsed_json_pth = get_parsed_json_pth(audio_pth)
 
-    if parsed_json.exists():
-        with open(parsed_json) as fp:
-            obj = json.load(fp)
-        return parsed_json, obj
+    if parsed_json_pth.exists():
+        obj = load_json(parsed_json_pth)
+        return parsed_json_pth, obj
 
     model = WhisperModel(model_size, device=device, compute_type="float16")
     with torch.no_grad():
         segments, info = model.transcribe(
             audio=str(audio_pth),
-            beam_size=beam_size
+            beam_size=beam_size,
         )
 
     parsed_content = [
@@ -50,10 +49,9 @@ def parse_audio_content(audio_pth: Union[str, Path], title: str) -> Tuple[Path, 
         'total_time': total_time,
         'content': parsed_content,
     }
-    with open(parsed_json, 'w') as fp:
-        json.dump(content_obj, fp, indent=2)
+    save_json(content_obj, parsed_json_pth, indent=2)
 
-    return parsed_json, content_obj
+    return parsed_json_pth, content_obj
 
 
 

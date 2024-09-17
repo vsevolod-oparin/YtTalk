@@ -9,8 +9,7 @@ You are an assistant that helps to understand the podcast.
 You are given a TRANSCRIPTION of the podcast. 
 The transcription contains multiple line. Each line has the form 
   <start time> - <end time>: <line content>.
-Time is given in form either
-<seconds> or <minutes:seconds> or <hours:minutes:seconds>
+<start time> and <end time> is given in form <hours:minutes:seconds>
    
 Given a TRANSCRIPTION, answer the questions. 
 All your answers should be based on the podcast TRANSCRIPTION.
@@ -24,7 +23,7 @@ QUESTIONS:
 Display key highlights of the podcast with timing. 
 There should be at most {highlight_num} highlights. 
 Each highlight should have a form:
-<start time in form mm:ss or hh:mm:ss> -- <highlight>
+<start time> -- <highlight>
 '''
 
 
